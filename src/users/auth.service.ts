@@ -19,7 +19,7 @@ import {
       // See if email is in use
       const users = await this.usersService.find(email);
       if (users.length) {
-        throw new BadRequestException('email in use');
+        throw new BadRequestException('email is in use');
       }
   
       // Hash the users password
@@ -27,7 +27,7 @@ import {
       const salt = randomBytes(8).toString('hex');
   
       // Hash the salt and the password together
-      const hash = (await scrypt(password, salt, 32)) as Buffer;
+      const hash = (await scrypt(password, salt, 16)) as Buffer;
   
       // Join the hashed result and the salt together
       const result = salt + '.' + hash.toString('hex');
@@ -50,7 +50,7 @@ import {
       const hash = (await scrypt(password, salt, 32)) as Buffer;
   
       if (storedHash !== hash.toString('hex')) {
-        throw new BadRequestException('bad password');
+        throw new BadRequestException('bad password request');
       }
   
       return user;

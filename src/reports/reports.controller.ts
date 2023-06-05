@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   Controller,
@@ -24,11 +25,21 @@ import { GetEstimateDto } from './dtos/get-estimate.dto';
 export class ReportsController {
   constructor(private reportsService: ReportsService) {}
 
+  /**
+   * 
+   * @param query 
+   */
   @Get()
   getEstimate(@Query() query: GetEstimateDto) {
     console.log(query);
   }
 
+  /**
+   * 
+   * @param body 
+   * @param user 
+   * @returns 
+   */
   @Post()
   @UseGuards(AuthGuard)
   @Serialize(ReportDto)
@@ -36,6 +47,12 @@ export class ReportsController {
     return this.reportsService.create(body, user);
   }
 
+  /**
+   * 
+   * @param id 
+   * @param body 
+   * @returns 
+   */
   @Patch('/:id')
   @UseGuards(AdminGuard)
   approveReport(@Param('id') id: string, @Body() body: ApproveReportDto) {

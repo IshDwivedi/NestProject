@@ -9,12 +9,23 @@ import { User } from './user.entity';
 export class UsersService {
   constructor(@InjectRepository(User) private repo: Repository<User>) {}
 
+  /**
+   * 
+   * @param email 
+   * @param password 
+   * @returns 
+   */
   create(email: string, password: string) {
     const user = this.repo.create({ email, password });
 
     return this.repo.save(user);
   }
 
+  /**
+   * 
+   * @param id 
+   * @returns 
+   */
   findOne(id: number) {
     if (!id) {
       return null;
@@ -25,6 +36,11 @@ export class UsersService {
     return this.repo.findOne(options);
   }
 
+  /**
+   * 
+   * @param email 
+   * @returns 
+   */
   find(email: string) {
     const options: FindManyOptions<User> = {
       where: { email },
@@ -32,6 +48,12 @@ export class UsersService {
     return this.repo.find( options );
   }
 
+  /**
+   * 
+   * @param id 
+   * @param attrs 
+   * @returns 
+   */
   async update(id: number, attrs: Partial<User>) {
     const user = await this.findOne(id);
     if (!user) {
@@ -41,6 +63,11 @@ export class UsersService {
     return this.repo.save(user);
   }
 
+  /**
+   * 
+   * @param id 
+   * @returns 
+   */
   async remove(id: number) {
     const user = await this.findOne(id);
     if (!user) {
