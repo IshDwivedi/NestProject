@@ -1,4 +1,5 @@
 /* eslint-disable prettier/prettier */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { IsEmail, IsOptional, IsString } from 'class-validator';
 
 export class UpdateUserDto {
