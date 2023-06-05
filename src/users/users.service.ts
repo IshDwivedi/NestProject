@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { FindManyOptions, FindOneOptions, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './user.entity';
 
@@ -15,21 +15,14 @@ export class UsersService {
   }
 
   findOne(id: number) {
-    const options: FindOneOptions<User> = {
-      where: {
-        id,
-      },
-    };
-    return this.repo.findOne(options);
+    if (!id) {
+      return null;
+    }
+    return this.repo.findOne(id);
   }
 
   find(email: string) {
-    const options: FindManyOptions<User> = {
-      where: {
-        email,
-      },
-    };
-    return this.repo.find(options);
+    return this.repo.find({ email });
   }
 
   async update(id: number, attrs: Partial<User>) {
