@@ -19,22 +19,22 @@ import {
   
     @Transform(({ value }) => parseInt(value))
     @IsNumber()
-    @Min(1930)
-    @Max(2050)
+    @Min(1990)
+    @Max(2025)
     year: number;
   
     @Transform(({ value }) => parseInt(value))
     @IsNumber()
     @Min(0)
-    @Max(1000000)
+    @Max(100000)
     mileage: number;
   
     @Transform(({ value }) => parseFloat(value))
     @IsLongitude()
-    lng: number;
+    longi: number;
   
     @Transform(({ value }) => parseFloat(value))
     @IsLatitude()
-    lat: number;
+    lati: number;
   }
   

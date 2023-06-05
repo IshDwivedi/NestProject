@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   Body,
@@ -29,18 +30,33 @@ export class UsersController {
     private usersService: UsersService,
     private authService: AuthService,
   ) {}
-
+  
+/**
+ * 
+ * @param user 
+ * @returns 
+ */
   @Get('/whoami')
   @UseGuards(AuthGuard)
   whoAmI(@CurrentUser() user: User) {
     return user;
   }
 
+  /**
+   * 
+   * @param session 
+   */
   @Post('/signout')
   signOut(@Session() session: any) {
     session.userId = null;
   }
 
+  /**
+   * 
+   * @param body 
+   * @param session 
+   * @returns 
+   */
   @Post('/signup')
   async createUser(@Body() body: CreateUserDto, @Session() session: any) {
     const user = await this.authService.signup(body.email, body.password);
@@ -48,6 +64,12 @@ export class UsersController {
     return user;
   }
 
+  /**
+   * 
+   * @param body 
+   * @param session 
+   * @returns 
+   */
   @Post('/signin')
   async signin(@Body() body: CreateUserDto, @Session() session: any) {
     const user = await this.authService.signin(body.email, body.password);
@@ -55,6 +77,11 @@ export class UsersController {
     return user;
   }
 
+  /**
+   * 
+   * @param id 
+   * @returns 
+   */
   @Get('/:id')
   async findUser(@Param('id') id: string) {
     const user = await this.usersService.findOne(parseInt(id));
@@ -64,16 +91,32 @@ export class UsersController {
     return user;
   }
 
+  /**
+   * 
+   * @param email 
+   * @returns 
+   */
   @Get()
   findAllUsers(@Query('email') email: string) {
     return this.usersService.find(email);
   }
 
+  /**
+   * 
+   * @param id 
+   * @returns 
+   */
   @Delete('/:id')
   removeUser(@Param('id') id: string) {
     return this.usersService.remove(parseInt(id));
   }
 
+  /**
+   * 
+   * @param id 
+   * @param body 
+   * @returns 
+   */
   @Patch('/:id')
   updateUser(@Param('id') id: string, @Body() body: UpdateUserDto) {
     return this.usersService.update(parseInt(id), body);

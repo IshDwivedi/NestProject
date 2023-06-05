@@ -12,6 +12,13 @@ import {
   export class CurrentUserInterceptor implements NestInterceptor {
     constructor(private usersService: UsersService) {}
   
+    /**
+     * 
+     * @param context 
+     * @param handler 
+     * @returns 
+     */
+    
     async intercept(context: ExecutionContext, handler: CallHandler) {
       const request = context.switchToHttp().getRequest();
       const { userId } = request.session || {};

@@ -17,24 +17,24 @@ import {
     model: string;
   
     @IsNumber()
-    @Min(1930)
-    @Max(2050)
+    @Min(1990)
+    @Max(2025)
     year: number;
   
     @IsNumber()
     @Min(0)
-    @Max(1000000)
+    @Max(100000)
     mileage: number;
   
     @IsLongitude()
-    lng: number;
+    longi: number;
   
     @IsLatitude()
-    lat: number;
+    lati: number;
   
     @IsNumber()
     @Min(0)
-    @Max(1000000)
+    @Max(100000)
     price: number;
   }
   

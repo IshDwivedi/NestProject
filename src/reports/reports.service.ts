@@ -1,7 +1,8 @@
+/* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { FindOneOptions, FindOperator, Repository } from 'typeorm';
 import { Report } from './report.entity';
 import { CreateReportDto } from './dtos/create-report.dto';
 import { User } from '../users/user.entity';
@@ -16,8 +17,11 @@ export class ReportsService {
     return this.repo.save(report);
   }
 
-  async changeApproval(id: string, approved: boolean) {
-    const report = await this.repo.findOne(id);
+  async changeApproval(id: string , approved: boolean) {
+    const options: FindOneOptions<Report> = {
+        where: { id: id as any },
+    };
+    const report = await this.repo.findOne(options);
     if (!report) {
       throw new NotFoundException('report not found');
     }

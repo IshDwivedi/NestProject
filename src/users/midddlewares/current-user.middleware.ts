@@ -18,6 +18,13 @@ declare global {
 export class CurrentUserMiddleware implements NestMiddleware {
   constructor(private usersService: UsersService) {}
 
+  /**
+   * 
+   * @param req 
+   * @param res 
+   * @param next 
+   */
+  
   async use(req: Request, res: Response, next: NextFunction) {
     const { userId } = req.session || {};
 
